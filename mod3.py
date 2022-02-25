@@ -1,3 +1,5 @@
+import numpy as np
+import csv
 import os
 from os.path import getsize, join
 
@@ -23,6 +25,16 @@ def get_files_sizes(dirpath):
                     print(i, total_size, razmer)
     else:
         print("Данная директория не найдена!")
+#get_files_sizes("D://nado")
 
+os.chdir('.')
+name = input()
+if os.path.exists(name):
+    with open(name, 'r', newline='') as f:
+        reader = csv.reader(f, delimiter=';', quotechar='"')
+        table = np.genfromtxt(f, delimiter=';', dtype=None, names=True, encoding="utf8")
+    a = np.array(table)
 
-get_files_sizes("D://nado")
+    sorts = np.sort(a, axis=-1, kind='quicksort', order=['price'])[::-1]
+    print(sorts)
+
